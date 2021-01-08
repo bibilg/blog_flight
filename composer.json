@@ -1,0 +1,15 @@
+{
+    "require": {
+        "mikecao/flight": "^1.3",
+        "phpunit/phpunit": "^9.5",
+        "guzzlehttp/guzzle": "^7.2",
+        "symfony/process": "^5.2",
+        "twig/twig": "^3.2",
+        "j4mie/paris": "^1.5"
+    },
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ]
+    }
+}
