@@ -5,7 +5,8 @@
         "guzzlehttp/guzzle": "^7.2",
         "symfony/process": "^5.2",
         "twig/twig": "^3.2",
-        "j4mie/paris": "^1.5"
+        "j4mie/paris": "^1.5",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "files": [
