@@ -12,6 +12,7 @@
  * @link     http://localhost/
  */
 
+session_start();
 require "vendor/autoload.php";
 
 // Load and configure twig
@@ -58,14 +59,25 @@ Flight::map(
 );
 
 /* ----- Starting routing ------*/
+
 Flight::route(
     '/', function () {
 
-        $user = User::where('pseudo' , 'bibi')->findOne();
+        $posts = Post::getPosts();
 
-        $comments = $user->comments()->find_many(); // See function in models
+        $message=null;
+        if (isset($_GET['registration']) && ($_GET['registration']=='new') ) {
+            $message= 'Inscription enregistrée, vous pouvez vous connecter';
+        } 
+        elseif (isset($_GET['logout']) && ($_GET['logout']=='true')) {
+            $message= 'Déconnexion réussie';
+        }
 
-        var_dump($comments);
+        Flight::render('index.twig', array(
+            'posts' => $posts,
+            'message' => $message
+            )
+        );
 
     }
 );

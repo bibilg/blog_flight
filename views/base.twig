@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <header class="header">
+            <div class="header__title"> 
+                <h1>Mon blog !</h1> 
+            </div>
+            <div class="header__pseudo">  
+                {% if session_pseudo is defined and session_pseudo is not null %} <!-- Don't forget to pass session_pseudo-->
+                    <p> Connecté : {{session_pseudo}}</p>
+                {% endif %}
+            </div>
+            <div class="header__connexion">
+                {% if session_pseudo is defined and session_pseudo is not null %} <!-- Don't forget to pass session_pseudo-->
+                    <a href='/'>Déconnexion</a> <!-- TODO : Change URL -->
+                {% else %}
+                    <a href="/">Connexion</a><!-- TODO : Change URL -->
+                {% endif %}
+            </div>
+        </header>
+    <main>{% block content %}{% endblock %}</main>
+    <footer>
+        {% block footer %}
+        &copy; Copyright 2020 by <a href="#">Bryan</a>
+        {% endblock %}
+    </footer>
+</body>
+</html>
