@@ -10,7 +10,8 @@
     },
     "autoload": {
         "files": [
-            "src/functions.php"
+            "src/functions.php",
+            "src/models.php"
         ]
     }
 }

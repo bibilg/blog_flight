@@ -25,7 +25,9 @@ $twigConfig = array(
 // Filter how connect a data base 
 Flight::before(
     'start', function (&$params, &$output) {
-        ORM::configure('sqlite:tweets.sqlite3');
+        ORM::configure('mysql:host=localhost;dbname=blog_flight');
+        ORM::configure('username', 'root');
+        ORM::configure('password', 'root');
     }
 );
 
@@ -58,7 +60,13 @@ Flight::map(
 /* ----- Starting routing ------*/
 Flight::route(
     '/', function () {
-        echo "Hello World!";
+
+        $user = User::where('pseudo' , 'bibi')->findOne();
+
+        $comments = $user->comments()->find_many(); // See function in models
+
+        var_dump($comments);
+
     }
 );
 
