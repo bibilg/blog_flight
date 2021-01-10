@@ -176,7 +176,7 @@ Flight::route(
         }
         else
         {
-            // Error handling
+            //TODO:  Error handling
         }
     }
 );
@@ -208,6 +208,29 @@ Flight::route(
             Flight::redirect('/');
         }
 
+
+    }
+);
+
+Flight::route(
+    '/post/addComment/@postId', function($postId){
+
+        if(isset($_POST['userid']) && isset($_POST['message']))
+        {
+            if(!empty($_POST['userid']) && !empty($_POST['message'])) // If datas are not empty
+            {
+                Comment::addComment($_POST['message'],$_POST['userid'],$postId); // Function which add comments on db
+                Flight::redirect('/post/' . $postId);
+            }
+            else 
+            {
+                throw new Exception('Les champs ne doivent pas être vides'); // TODO : handling this, why ??
+            }
+        }
+        else
+        {
+            throw new Exception('Problème lors de l\'ajout de commentaire'); // TODO : handling this, why ??
+        }
 
     }
 );

@@ -106,4 +106,25 @@ class Comment extends Model
     public function user() {
         return $this->has_one('User');
     }
+
+    public static function addComment($message,$userId,$postId)
+    {
+        $commentToAdd = Comment::create();
+        $commentToAdd->comment= $message;
+        $commentToAdd->user_id= $userId;
+        $commentToAdd->post_id= $postId;
+        $commentToAdd->set_expr('comment_date', 'NOW()');
+        $commentToAdd->save();
+
+        $comment_added_id = $commentToAdd->id(); // Fetch id of instance just added
+
+        if(!empty($comment_added_id))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
