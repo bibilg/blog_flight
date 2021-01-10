@@ -92,7 +92,32 @@ Flight::route(
 Flight::route(
     '/connexion', function() {
 
-        Flight::render('connexion.twig');
+        $get_pseudo=null;
+        if(isset($_GET['pseudo']))
+        {
+            $get_pseudo=$_GET['pseudo'];
+        }
+
+        $get_mdp=null;
+        if(isset($_GET['mdp']))
+        {
+            $get_mdp=$_GET['mdp'];
+        }
+        
+        Flight::render('connexion.twig', array(
+            'get_pseudo' => $get_pseudo,
+            'get_mdp' => $get_mdp
+        ));
+    }
+);
+
+Flight::route(
+    '/logout', function() {
+
+        $_SESSION = array(); // Deleted session's variables
+        session_destroy();
+
+        Flight::redirect('/');
     }
 );
 
@@ -105,7 +130,7 @@ Flight::route(
         }
         else
         {
-            Flight::redirect('/');
+            Flight::redirect('/connexion');
         }
 
     }

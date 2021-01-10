@@ -6,11 +6,8 @@ require "vendor/autoload.php";
 
 function connexion($pseudo, $password)
 {
-    
-    
     if(!empty($pseudo))
     {
-        
         if(User::pseudoExist($pseudo))
         {
             $pass= User::getPassByPseudo($pseudo)->pass;
@@ -23,25 +20,19 @@ function connexion($pseudo, $password)
                 $_SESSION['pseudo'] = $pseudo;
 
                 Flight::redirect('/');
-
             }
             else
             {
-                header('Location:index.php?action=connexion&mdp=false');
+                Flight::redirect('/connexion?mdp=false');
             }
         }
         else 
         {
-            header('Location:index.php?action=connexion&pseudo=inexist');
+            Flight::redirect('/connexion?pseudo=inexist');
         }
     }
     else
     {
-        header('Location:index.php?action=connexion&pseudo=empty');
+        Flight::redirect('/connexion?pseudo=empty');
     }
-}
-
-function test()
-{
-    Flight::redirect('/');
 }
