@@ -2,11 +2,6 @@
 
 {% block title %}Liste des posts{% endblock %}
 
-{% block head %}
-<link rel="stylesheet" type="text/css" href="src/styles/reset.css" />
-<link rel="stylesheet" type="text/css" href="src/styles/main.css" />
-{% endblock %}
-
 {% block content %}
     
     <h2>Derniers billets :</h2>
@@ -17,7 +12,7 @@
                     <p> 
                        {{ post.content|nl2br }}
                         </br>
-                        <a href="#"> Commentaires </a> <!-- TODO : Change URL-->
+                        <a href="post/{{post.id}}"> Commentaires </a> <!-- TODO : Change URL-->
                     </p>
             </div>
     {% endfor %}

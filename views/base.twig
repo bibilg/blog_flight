@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="stylesheet" type="text/css" href="src/styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="src/styles/main.css" />
     {% block head %}
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -11,12 +13,12 @@
                 <h1>Mon blog !</h1> 
             </div>
             <div class="header__pseudo">  
-                {% if session_pseudo is defined and session_pseudo is not null %} <!-- Don't forget to pass session_pseudo-->
-                    <p> Connecté : {{session_pseudo}}</p>
+                {% if session.pseudo is defined and session.pseudo is not null %} <!-- Don't forget to pass session.pseudo-->
+                    <p> Connecté : {{session.pseudo}}</p>
                 {% endif %}
             </div>
             <div class="header__connexion">
-                {% if session_pseudo is defined and session_pseudo is not null %} <!-- Don't forget to pass session_pseudo-->
+                {% if session.pseudo is defined and session.pseudo is not null %} <!-- Don't forget to pass session.pseudo-->
                     <a href='/blog_flight/logout'>Déconnexion</a> <!-- TODO : Change URL -->
                 {% else %}
                     <a href="/blog_flight/connexion">Connexion</a>

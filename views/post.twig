@@ -1,0 +1,45 @@
+{% extends "base.twig" %} 
+
+{% block title %} {{post.title}} {% endblock %}
+
+{% block head %} <link rel="stylesheet" type="text/css" href="../src/styles/main.css" /> {% endblock %}
+
+{% block content %}
+   
+   <p><a href="/blog_flight">Retour à la liste des billets</a></p>
+
+    <div class = "news">
+        <h3> {{post.title}} le {{post.creation_date}}</h3>
+        <p>{{post.content|nl2br}}</br> </p>              
+    </div>
+
+    <h2>Commentaires :</h2>
+    {% for comment in comments %}
+        <p> {{comment.user_id}} le {{comment.comment_date}}
+            {% if comment.user_id == session.id %}
+                <a href="#">(Modifier)</a>  <!-- TODO: Change URL to modify comment-->
+            {% endif %}
+        </p> 
+        <p>{{comment.comment|nl2br}}</p>
+    {% endfor %}
+
+    {% if session.pseudo is defined %}
+        <h2>Ajouter un commentaire</h2>
+
+        <form action="#" method="post"> <!-- TODO : Change URL to add comment -->
+            <p>
+                <label for="pseudo">Pseudo :</label>
+                <input type="text" id="pseudo" name="pseudo" value="{{session.pseudo}}" readonly="readonly"/>
+            </p>
+            <p>
+                <label for="message">Votre message :</label>
+                <textarea type="text" id="message" name="message" rows="5"></textarea>
+            </p>
+                <input name="id" type="hidden" value="{{post.id}}"/> 
+                <!-- Send hidden date with type hidden-->
+                <input type="submit" value="Valider" />
+        </form>
+    {% endif %}
+
+    
+{% endblock %}

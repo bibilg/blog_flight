@@ -65,10 +65,11 @@ Flight::route(
 
         $posts = Post::getPosts();
         
-        $session_pseudo=null;
-        if(isset($_SESSION['pseudo']))
+        $session=null;
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
         {
-            $session_pseudo = $_SESSION['pseudo'];
+            $session['pseudo'] = $_SESSION['pseudo'];
+            $session['id'] = $_SESSION['id'];
         }
 
         $message=null;
@@ -82,7 +83,7 @@ Flight::route(
         Flight::render('index.twig', array(
             'posts' => $posts,
             'message' => $message,
-            'session_pseudo' => $session_pseudo
+            'session' => $session
             )
         );
 
@@ -177,6 +178,37 @@ Flight::route(
         {
             // Error handling
         }
+    }
+);
+
+Flight::route(
+    '/post/@postId', function($postId){
+
+        $session=null;
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
+        {
+            $session['pseudo'] = $_SESSION['pseudo'];
+            $session['id'] = $_SESSION['id'];
+        }
+
+        if(Post::exists($postId))
+        {
+            $post = Post::find_one($postId);
+
+            $comments = $post->comments()->find_many();
+
+            Flight::render('post.twig', array(
+                'post' => $post,
+                'comments' => $comments,
+                'session' => $session
+            ));
+        }
+        else
+        {
+            Flight::redirect('/');
+        }
+
+
     }
 );
 

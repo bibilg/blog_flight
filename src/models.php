@@ -78,6 +78,21 @@ class Post extends Model
     {
         return Post::order_by_asc('id')->limit(5)->find_many();
     }
+
+    public static function exists($postId)
+    {
+        $ids = Post::select('id')->find_many();
+
+        foreach($ids as $id)
+        {
+            if($id->id == $postId)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 class Comment extends Model

@@ -18,6 +18,7 @@ function connexion($pseudo, $password)
             {
                 // MAYBE Fetch Id and assigned in $_SESSION['id'] ?
                 $_SESSION['pseudo'] = $pseudo;
+                $_SESSION['id'] = User::where('pseudo', $pseudo)->find_one()->id;
 
                 Flight::redirect('/');
             }
@@ -55,7 +56,7 @@ function registration($pseudo,$email,$mdp,$mdpConfirmation)
                     }
                     else
                     {
-                        // Error handling 
+                        Flight::redirect('/registration');
                     }
                
                 }
