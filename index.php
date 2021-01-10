@@ -137,6 +137,14 @@ Flight::route(
 );
 
 Flight::route(
+    '/registration', function(){
+
+        Flight::render('registration.twig');
+
+    }
+);
+
+Flight::route(
     '/test', function() {
         $user = User::getPassByPseudo('bibi')->pass;
 

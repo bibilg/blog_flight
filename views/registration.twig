@@ -1,0 +1,51 @@
+{% extends "base.twig" %} 
+
+{% block title %}Registration{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="src/styles/reset.css" />
+<link rel="stylesheet" type="text/css" href="src/styles/main.css" />
+{% endblock %}
+
+{% block content %}
+   
+    <p><a href="/blog_flight">Retour à la liste des billets</a></p>
+
+    <form action="index.php?action=registrationConfirmation" method="post">
+        <p>
+            <label for="pseudo">Pseudo :</label>
+            <input type="text" id="pseudo" name="pseudo" /> <!-- l'attribut id est complémentaire à la balise for de label -->
+        </p>
+    {% if get_pseudo is defined and get_pseudo == "false" %}
+        <p>Veuillez entrer un pseudo</p>
+    {% elseif get_pseudo is defined and get_pseudo == "unavailable" %}
+        <p>Pseudo indisponible</p>
+    {% endif %}
+        <p>
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" />
+        </p>
+    {% if get_email is defined and get_email =="false" %}
+        <p>Adresse e-mail incorrect</p>
+    {% endif %}
+
+
+        <p>
+            <label for="mdp">Mot de passe :</label>
+            <input type="password" id="mdp" name="mdp" />
+        </p>
+        <p>
+            <label for="confirmation_mdp">Confirmez votre mot de passe :</label>
+            <input type="password" id="confirmation_mdp" name="confirmation_mdp" />
+        </p>
+    {% if get_mdp is defined and get_mdp == "false" %}
+        <p>Le mot de passe ne correspond pas </br></br></p>
+    {% endif %}
+
+        <input type="submit" value="Valider" />
+    </form>
+
+    <a href="connexion">Déjà inscrit ?</a>
+
+    
+{% endblock %}
