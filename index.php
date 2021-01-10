@@ -64,6 +64,12 @@ Flight::route(
     '/', function () {
 
         $posts = Post::getPosts();
+        
+        $session_pseudo=null;
+        if(isset($_SESSION['pseudo']))
+        {
+            $session_pseudo = $_SESSION['pseudo'];
+        }
 
         $message=null;
         if (isset($_GET['registration']) && ($_GET['registration']=='new') ) {
@@ -75,10 +81,41 @@ Flight::route(
 
         Flight::render('index.twig', array(
             'posts' => $posts,
-            'message' => $message
+            'message' => $message,
+            'session_pseudo' => $session_pseudo
             )
         );
 
+    }
+);
+
+Flight::route(
+    '/connexion', function() {
+
+        Flight::render('connexion.twig');
+    }
+);
+
+Flight::route(
+    '/connexionConfirmation', function() {
+
+        if( isset($_POST['pseudo']) && isset($_POST['mdp']) )
+        {
+            connexion($_POST['pseudo'],$_POST['mdp']);
+        }
+        else
+        {
+            Flight::redirect('/');
+        }
+
+    }
+);
+
+Flight::route(
+    '/test', function() {
+        $user = User::getPassByPseudo('bibi')->pass;
+
+        var_dump($user);
     }
 );
 

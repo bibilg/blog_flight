@@ -17,9 +17,9 @@
             </div>
             <div class="header__connexion">
                 {% if session_pseudo is defined and session_pseudo is not null %} <!-- Don't forget to pass session_pseudo-->
-                    <a href='/'>Déconnexion</a> <!-- TODO : Change URL -->
+                    <a href='/blog_flight'>Déconnexion</a> <!-- TODO : Change URL -->
                 {% else %}
-                    <a href="/">Connexion</a><!-- TODO : Change URL -->
+                    <a href="/blog_flight/connexion">Connexion</a>
                 {% endif %}
             </div>
         </header>

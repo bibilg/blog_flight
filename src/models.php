@@ -7,6 +7,26 @@ class User extends Model
     public function comments(){
         return $this->has_many('Comment'); // Note we use the model name literally - not a pluralised version
     }
+
+    public static function getPassByPseudo($pseudo)
+    {
+        return User::select('pass')->where('pseudo' , $pseudo)->find_one();
+    }
+
+    public static function pseudoExist($pseudoname){
+
+        $pseudos = User::select('pseudo')->find_many();
+
+        foreach($pseudos as $pseudo)
+        {
+            if($pseudo->pseudo == $pseudoname)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 }
 

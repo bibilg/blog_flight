@@ -1,0 +1,38 @@
+{% extends "base.twig" %} 
+
+{% block title %}Connexion{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="src/styles/reset.css" />
+<link rel="stylesheet" type="text/css" href="src/styles/main.css" />
+{% endblock %}
+
+{% block content %}
+   
+   <p><a href="/blog_flight">Retour à la liste des billets</a></p>
+
+    <form action="/blog_flight/connexionConfirmation" method="post">
+        <p>
+            <label for="pseudo">Pseudo :</label>
+            <input type="text" id="pseudo" name="pseudo" /> <!-- l'attribut id est complémentaire à la balise for de label -->
+        </p>
+            {% if get_pseudo is defined and get_pseudo == "empty" %}
+                <p>Le pseudo doit être renseigné</p>
+            {% elseif get_pseudo is defined and get_pseudo == "inexist" %}
+                <p>Le pseudo n'existe pas</p>
+            {% endif %}
+        <p>
+            <label for="mdp">Mot de passe :</label>
+            <input type="password" id="mdp" name="mdp" />
+        </p>
+            {% if get_mdp is defined and get_mdp == "false" %}
+                <p>Le mot de passe est incorrect</br></br></p>
+            {% endif %}
+
+            <input type="submit" value="Valider" />
+    </form>
+
+    <a href="/flight_discovery">Pas encore inscrit ?</a>
+
+    
+{% endblock %}
