@@ -117,7 +117,7 @@ Flight::route(
         $_SESSION = array(); // Deleted session's variables
         session_destroy();
 
-        Flight::redirect('/');
+        Flight::redirect('/?logout=true');
     }
 );
 
@@ -139,8 +139,44 @@ Flight::route(
 Flight::route(
     '/registration', function(){
 
-        Flight::render('registration.twig');
+        $get_pseudo=null;
+        if(isset($_GET['pseudo']))
+        {
+            $get_pseudo=$_GET['pseudo'];
+        }
 
+        $get_mdp=null;
+        if(isset($_GET['mdp']))
+        {
+            $get_mdp=$_GET['mdp'];
+        }
+
+        $get_email=null;
+        if(isset($_GET['email']))
+        {
+            $get_email=$_GET['email'];
+        }
+
+        Flight::render('registration.twig', array(
+            'get_pseudo' => $get_pseudo,
+            'get_mdp' => $get_mdp,
+            'get_email' => $get_email
+        ));
+
+    }
+);
+
+Flight::route(
+    '/registrationConfirmation', function(){
+
+        if( isset($_POST['pseudo'])  &&  isset($_POST['email']) && isset($_POST['mdp']) && isset($_POST['confirmation_mdp']) )
+        { 
+            registration($_POST['pseudo'],$_POST['email'],$_POST['mdp'],$_POST['confirmation_mdp']);              
+        }
+        else
+        {
+            // Error handling
+        }
     }
 );
 
