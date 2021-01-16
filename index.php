@@ -266,6 +266,28 @@ Flight::route(
     
 );
 
+
+Flight::route(
+    '/comment/editComment/@commentId', function($commentId){
+
+        if(isset($_POST['newContent'])) 
+        {
+            if(!empty($_POST['newContent'])) 
+            {
+                if(Comment::editContent($commentId, $_POST['newContent']))
+                {
+                    $postId = Comment::find_one($commentId)->post_id;
+                    Flight::redirect('/post/' . $postId);
+                }
+            }
+            else
+            {
+                throw new Exception('Erreur : aucun contenu dans le nouveau message'); // If the comment is empty
+            }
+        }
+    }
+);
+
 Flight::route(
     '/test', function() {
         $user = User::getPassByPseudo('bibi')->pass;

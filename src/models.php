@@ -164,4 +164,21 @@ class Comment extends Model
             return false;
         }
     }
+
+    public static function editContent($commentId,$newContent)
+    {
+        $comment = Comment::find_one($commentId);
+
+        $comment->set('comment' , $newContent);
+
+        $comment->save();
+
+        if($comment->is_dirty('content'))
+        {
+            return false; // Here the content was not succesfully edited
+        }
+
+        return true;
+
+    }
 }

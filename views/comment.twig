@@ -10,7 +10,7 @@
 
     <h2>Modifier le commentaire</h2>
 
-    <form action="#" method="post"> {# TODO : Change URL #}
+    <form action="editComment/{{comment.id}}" method="post"> {# TODO : Change URL #}
         <p>
             Pseudo de l'auteur : {{user.pseudo}}
         </p>
@@ -18,7 +18,9 @@
             <label for="newContent">Message à modifier :</label>
             <textarea type="text" id="newContent" name="newContent" rows="5">{{comment.comment}}</textarea>
         </p>  
+        {% if comment.user_id == session.id %}
             <input type="submit" value="Modifier" />
+        {% endif %}
         </form>
     
 {% endblock %}
