@@ -141,6 +141,7 @@ class Comment extends Model
         ->select('c.id' , 'comment_id')
         //->select_many(array('c.comment' => 'comment'), array('c.comment_date' => 'comment_date'), array('c.user_id' => 'user_id'), array('u.pseudo' => 'pseudo'))
         ->join('user', array('c.user_id', '=', 'u.id'), 'u')
+        ->where('c.post_id' , $postId)
         ->find_many();
     }
 
