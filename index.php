@@ -236,6 +236,37 @@ Flight::route(
 );
 
 Flight::route(
+    '/comment/@commentId', function($commentId) {
+
+        $session=null;
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
+        {
+            $session['pseudo'] = $_SESSION['pseudo'];
+            $session['id'] = $_SESSION['id'];
+        }
+
+        if(Comment::exists($commentId))
+        {
+            $comment = Comment::find_one($commentId);
+
+            $user = User::find_one($comment->user_id);
+
+            Flight::render('comment.twig', array(
+                'session' => $session,
+                'comment' => $comment,
+                'user' => $user
+            ));
+        }
+        else
+        {
+            Flight::redirect('/');
+        }
+
+    }
+    
+);
+
+Flight::route(
     '/test', function() {
         $user = User::getPassByPseudo('bibi')->pass;
 

@@ -116,6 +116,21 @@ class Comment extends Model
         return $this->has_one('User');
     }
 
+    public static function exists($commentId)
+    {
+        $ids = Comment::select('id')->find_many();
+
+        foreach($ids as $id)
+        {
+            if($id->id == $commentId)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function getCommentsWithUserPseudo($postId)
     {
         return Comment::table_alias('c')
@@ -123,6 +138,7 @@ class Comment extends Model
         ->select_expr('DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\')', 'comment_date')
         ->select('c.user_id' , 'user_id')
         ->select('u.pseudo' , 'pseudo')
+        ->select('c.id' , 'comment_id')
         //->select_many(array('c.comment' => 'comment'), array('c.comment_date' => 'comment_date'), array('c.user_id' => 'user_id'), array('u.pseudo' => 'pseudo'))
         ->join('user', array('c.user_id', '=', 'u.id'), 'u')
         ->find_many();

@@ -1,0 +1,24 @@
+{% extends "base.twig" %} 
+
+{% block title %}Modification de commentaire{% endblock %}
+
+{% block head %} <link rel="stylesheet" type="text/css" href="../src/styles/main.css" /> {% endblock %}
+
+{% block content %}
+    
+    <p><a href="/blog_flight">Retour à la liste des billets</a></p>
+
+    <h2>Modifier le commentaire</h2>
+
+    <form action="#" method="post"> {# TODO : Change URL #}
+        <p>
+            Pseudo de l'auteur : {{user.pseudo}}
+        </p>
+        <p>
+            <label for="newContent">Message à modifier :</label>
+            <textarea type="text" id="newContent" name="newContent" rows="5">{{comment.comment}}</textarea>
+        </p>  
+            <input type="submit" value="Modifier" />
+        </form>
+    
+{% endblock %}

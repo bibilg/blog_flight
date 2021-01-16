@@ -17,7 +17,7 @@
     {% for comment in comments %}
         <p> {{comment.pseudo}} le {{comment.comment_date}}
             {% if comment.user_id == session.id %}
-                <a href="#">(Modifier)</a>  <!-- TODO: Change URL to modify comment-->
+                <a href="/blog_flight/comment/{{comment.comment_id}}">(Modifier)</a>  <!-- TODO: Change URL to modify comment-->
             {% endif %}
         </p> 
         <p>{{comment.comment|nl2br}}</p>
