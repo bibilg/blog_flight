@@ -195,7 +195,7 @@ Flight::route(
         {
             $post = Post::find_one($postId);
 
-            $comments = $post->comments()->find_many();
+            $comments = Comment::getCommentsWithUserPseudo($postId);
 
             Flight::render('post.twig', array(
                 'post' => $post,

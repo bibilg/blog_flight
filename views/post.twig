@@ -15,7 +15,7 @@
 
     <h2>Commentaires :</h2>
     {% for comment in comments %}
-        <p> {{comment.user_id}} le {{comment.comment_date}}
+        <p> {{comment.pseudo}} le {{comment.comment_date}}
             {% if comment.user_id == session.id %}
                 <a href="#">(Modifier)</a>  <!-- TODO: Change URL to modify comment-->
             {% endif %}

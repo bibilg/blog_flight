@@ -107,6 +107,18 @@ class Comment extends Model
         return $this->has_one('User');
     }
 
+    public static function getCommentsWithUserPseudo($postId)
+    {
+        return Comment::table_alias('c')
+        ->select('c.comment' , 'comment')
+        ->select('c.comment_date' , 'comment_date')
+        ->select('c.user_id' , 'user_id')
+        ->select('u.pseudo' , 'pseudo')
+        //->select_many(array('c.comment' => 'comment'), array('c.comment_date' => 'comment_date'), array('c.user_id' => 'user_id'), array('u.pseudo' => 'pseudo'))
+        ->join('user', array('c.user_id', '=', 'u.id'), 'u')
+        ->find_many();
+    }
+
     public static function addComment($message,$userId,$postId)
     {
         $commentToAdd = Comment::create();
