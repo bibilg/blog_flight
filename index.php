@@ -193,7 +193,7 @@ Flight::route(
 
         if(Post::exists($postId))
         {
-            $post = Post::find_one($postId);
+            $post = Post::findOneWithFrDate($postId);
 
             $comments = Comment::getCommentsWithUserPseudo($postId);
 

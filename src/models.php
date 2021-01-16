@@ -76,7 +76,16 @@ class Post extends Model
 
     public static function getPosts()
     {
-        return Post::order_by_asc('id')->limit(5)->find_many();
+        return Post::select('title')->select('content')->select('id')
+        ->select_expr('DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\')', 'creation_date')
+        ->order_by_asc('id')->limit(5)->find_many();
+    }
+
+    public static function findOneWithFrDate($postId)
+    {
+        return Post::select('title')->select('content')->select('id')
+        ->select_expr('DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\')', 'creation_date')
+        ->find_one($postId);
     }
 
     public static function exists($postId)
@@ -111,7 +120,7 @@ class Comment extends Model
     {
         return Comment::table_alias('c')
         ->select('c.comment' , 'comment')
-        ->select('c.comment_date' , 'comment_date')
+        ->select_expr('DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\')', 'comment_date')
         ->select('c.user_id' , 'user_id')
         ->select('u.pseudo' , 'pseudo')
         //->select_many(array('c.comment' => 'comment'), array('c.comment_date' => 'comment_date'), array('c.user_id' => 'user_id'), array('u.pseudo' => 'pseudo'))
