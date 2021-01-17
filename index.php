@@ -65,12 +65,7 @@ Flight::route(
 
         $posts = Post::getPosts();
         
-        $session=null;
-        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
-        {
-            $session['pseudo'] = $_SESSION['pseudo'];
-            $session['id'] = $_SESSION['id'];
-        }
+        $session= session();
 
         $message=null;
         if (isset($_GET['registration']) && ($_GET['registration']=='new') ) {
@@ -92,6 +87,11 @@ Flight::route(
 
 Flight::route(
     '/connexion', function() {
+
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
+        {
+            Flight::redirect('/');
+        }
 
         $get_pseudo=null;
         if(isset($_GET['pseudo']))
@@ -140,6 +140,11 @@ Flight::route(
 Flight::route(
     '/registration', function(){
 
+        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
+        {
+            Flight::redirect('/');
+        }
+
         $get_pseudo=null;
         if(isset($_GET['pseudo']))
         {
@@ -184,12 +189,7 @@ Flight::route(
 Flight::route(
     '/post/@postId', function($postId){
 
-        $session=null;
-        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
-        {
-            $session['pseudo'] = $_SESSION['pseudo'];
-            $session['id'] = $_SESSION['id'];
-        }
+        $session= session();
 
         if(Post::exists($postId))
         {
@@ -238,12 +238,7 @@ Flight::route(
 Flight::route(
     '/comment/@commentId', function($commentId) {
 
-        $session=null;
-        if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
-        {
-            $session['pseudo'] = $_SESSION['pseudo'];
-            $session['id'] = $_SESSION['id'];
-        }
+        $session= session();
 
         if(Comment::exists($commentId))
         {
@@ -285,14 +280,6 @@ Flight::route(
                 throw new Exception('Erreur : aucun contenu dans le nouveau message'); // If the comment is empty
             }
         }
-    }
-);
-
-Flight::route(
-    '/test', function() {
-        $user = User::getPassByPseudo('bibi')->pass;
-
-        var_dump($user);
     }
 );
 

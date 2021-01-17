@@ -80,3 +80,16 @@ function registration($pseudo,$email,$mdp,$mdpConfirmation)
         Flight::redirect('/registration?pseudo=false');
     }
 }
+
+function session()
+{
+    if(isset($_SESSION['pseudo']) && isset($_SESSION['id']))
+    {
+        $session['pseudo'] = $_SESSION['pseudo'];
+        $session['id'] = $_SESSION['id'];
+
+        return $session;
+    }
+
+    return null;
+}
